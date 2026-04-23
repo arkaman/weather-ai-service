@@ -2,6 +2,8 @@
 
 AI-powered backend that turns raw weather forecasts into human-friendly advice.
 
+This backend is built to pair with the [weather-app](https://github.com/arkaman/weather-app) frontend.
+
 ## Tech Stack
 - Spring Boot
 - Gemini API
@@ -41,7 +43,3 @@ GOOGLE_API_KEY=your_api_key
 2. Run the Spring Boot application
 
 3. Call the API endpoint
-
-## Frontend
-
-This backend is built to pair with the [weather-app](https://github.com/arkaman/weather-app) frontend.
