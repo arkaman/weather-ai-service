@@ -49,12 +49,12 @@ public class GeminiService {
             }
 
             String time = item.dt_txt.split(" ")[1];
-            double tempC = item.main.temp - 273.15;
+            double temp = item.main.temp;
 
             sb.append(String.format(
                     "Time: %s | Temp: %.1f°C | %s | Humidity: %d%% | Wind: %.1f m/s%n",
                     time,
-                    tempC,
+                    temp,
                     item.weather.getFirst().description,
                     item.main.humidity,
                     item.wind.speed

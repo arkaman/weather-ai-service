@@ -9,7 +9,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/weather")
-@CrossOrigin
 public class WeatherController {
 
     private final GeminiService service;
