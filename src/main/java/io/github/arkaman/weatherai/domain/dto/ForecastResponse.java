@@ -4,4 +4,5 @@ import java.util.List;
 
 public class ForecastResponse {
     public List<ForecastItem> list;
+    public City city;
 }

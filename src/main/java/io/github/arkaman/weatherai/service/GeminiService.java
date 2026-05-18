@@ -12,13 +12,28 @@ import java.util.List;
 public class GeminiService {
 
     private final Client client;
+    private final CacheService cacheService;
 
-    public GeminiService(Client client) {
+    public GeminiService(Client client, CacheService cacheService) {
         this.client = client;
+        this.cacheService = cacheService;
     }
 
-    public String generateAdvice(List<ForecastItem> forecastList) {
+    public String generateAdvice(String city, List<ForecastItem> forecastList) {
+        // create cache key
+        String normalizedCity = city.toLowerCase().trim();
 
+        String cacheKey = "weather:" + normalizedCity + ":" + LocalDate.now();
+
+        // check Redis first
+        String cachedAdvice = cacheService.get(cacheKey);
+
+        if (cachedAdvice != null) {
+            System.out.println("Returning cached advice...");
+            return cachedAdvice;
+        }
+
+        // generate new advice
         List<ForecastItem> todayItems = filterTodayForecast(forecastList);
 
         if (todayItems.isEmpty()) {
@@ -27,7 +42,12 @@ public class GeminiService {
 
         String summary = buildSummary(todayItems);
 
-        return requestAdviceFromGemini(summary);
+        String advice = requestAdviceFromGemini(summary);
+
+        // store in redis
+        cacheService.save(cacheKey, advice, 6);
+
+        return advice;
     }
 
     private List<ForecastItem> filterTodayForecast(List<ForecastItem> list) {

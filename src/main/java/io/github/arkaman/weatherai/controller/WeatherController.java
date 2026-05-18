@@ -25,7 +25,9 @@ public class WeatherController {
                     .body(Map.of("error", "Invalid forecast data"));
         }
 
-        String advice = service.generateAdvice(response.list);
+        String city = response.city != null ? response.city.name : "unknown";
+
+        String advice = service.generateAdvice(city, response.list);
 
         return ResponseEntity.ok(Map.of("advice", advice));
     }
