@@ -8,11 +8,13 @@ This backend is built to pair with the [weather-app](https://github.com/arkaman/
 - Spring Boot
 - Gemini API
 - OpenWeather API (data source)
+- Redis (caching)
 
 ## Features
 - Filters today's forecast
 - Generates concise weather advice using AI
 - REST API endpoint for frontend integration
+- Smart city-based cache handling with automatic expiration
 
 ## API
 
@@ -21,6 +23,7 @@ This backend is built to pair with the [weather-app](https://github.com/arkaman/
 Request:
 ```json
 {
+  "city": [ ...city name...],
   "list": [ ...forecast data... ]
 }
 ```
@@ -34,10 +37,11 @@ Response:
 
 ## Setup
 
-1. Set your API key:
+1. Set environment variables:
 
 ```
 GOOGLE_API_KEY=your_api_key
+REDIS_URL=your_redis_url
 ```
 
 2. Run the Spring Boot application
